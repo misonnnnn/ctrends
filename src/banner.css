@@ -1,0 +1,4 @@
+.gradient-overlay {
+  background: linear-gradient(to left, transparent 50%, white 100%);
+  pointer-events: none;
+}
