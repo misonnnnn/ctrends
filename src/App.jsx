@@ -1,22 +1,26 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import HomePage from './Pages/HomePage';
+import ProductPage from './Pages/ProductPage';
+import Template from './Template';
+
 import './App.css'
 import './assets/fonts/fonts.css'
-import Navbar from './Navbar/Navbar';
-import ProductList from './Products/ProductList';
-import Banner from './Banner/Banner';
-import FeaturedItem from './Banner/FeaturedItems';
 
-function App() {
-  return ( 
-    <>
-      <Navbar />
-      <Banner />
-      <FeaturedItem />
-      <div className="container mt-5">
-        <ProductList />
-      </div>
-    </>
-  );
+
+function App(){
+  return (
+    <Router>
+      <Routes>
+        <Route path='/' element={<Template />} >
+          <Route index element={<HomePage />} />
+          <Route path='/products/:categoryId' element={<ProductPage />} />
+        </Route>
+      </Routes>
+    </Router>
+  )
 }
+
+
 
 export default App

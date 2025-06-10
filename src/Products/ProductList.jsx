@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-
+//api keys
+//1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
+//fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [productListLoading, setProductListLoading] = useState(true); 
@@ -9,7 +11,7 @@ function ProductList() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json', 
-        'X-RapidAPI-Key': '1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65' 
+        'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
       },
     })
       .then(res => res.json())

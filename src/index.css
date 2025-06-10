@@ -6,12 +6,20 @@
 
   color-scheme: light dark;
   color: rgba(99, 96, 96, 0.87);
-  background-color: #242424;
+  background-color: #eee;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.primary_color {
+  color:#b17659;
+}
+
+.primary_background{
+  background: #b17659;
 }
 
 a {
@@ -33,4 +41,122 @@ a:hover {
 
 .s-f-size{
   font-size:13px;
+}
+
+
+/* navbar */
+.customNav{
+  border-bottom:solid 2px #b17659
+}
+.navMenu{
+  transition:.5s;
+  color:#fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:relative; 
+  height: 60px;
+}
+
+.navMenu_men {
+  background: #b17659;
+}
+.navMenu_women {
+  background: #c8ac9e;
+}
+
+.navMenu:hover{
+  background:#eeeeee;
+  transition:.3s;
+  color:#000;
+}
+
+.categoryOuterDiv{
+  /* background: #B17659; */
+  background-color: #fff;
+  background: linear-gradient(90deg,rgb(243, 200, 178) 0%, rgba(255, 255, 255, 1) 100%);
+  padding:10px;
+  box-shadow: 1px 1px 3px 0px #777 !important;
+  border-radius: 5px;
+  position: relative;
+  z-index: 99;
+  /* border: solid 1px #fff; */
+  
+}
+
+.categoryOuterDivCaretTop{
+    border-left: solid 25px transparent; 
+    border-right: solid 25px transparent; 
+    border-bottom: solid 25px #fff;
+    filter: drop-shadow(1px -5px #0b090937);
+    height: 0; 
+    width: 0; 
+    position:absolute;
+    top:-20px;
+    z-index: 1;
+    transition:.3s;
+}
+
+/* .categoryOuterDivCaretTop,
+.categoryOuterDivCaretTop:after  {
+    content: "\0020";
+    display:block;
+    position:absolute;
+    top:-20px;
+    left: 11%;
+    z-index:999;
+    width: 0;
+    height: 0;
+    border: solid 20px transparent;
+    border-top: 0;
+    border-bottom-color:#ffffff;
+} */
+/* .categoryOuterDivCaretTop:after {
+    left: -20px;
+    top: -5px;
+    border-bottom-color:rgba(44, 41, 131, 0.095);
+} */
+
+.categoryOuterList{
+  position:relative;
+}
+.categoryOuterList_1{
+  padding: 0 20px;
+  position:relative;
+  border-right:2px solid #fbfbfb;
+  margin:0 5px;
+  transition:.3s;
+  cursor: pointer;
+}
+.categoryOuterList_1:hover{
+  transition:.3s;
+  background-color: rgba(0, 0, 0, .2);
+  color:#fff;
+  border-radius: 10px 0 0 10px;
+}
+
+.categoryListChildren{
+  background:#fff;
+  padding:10px;
+  width: 100%;
+  position:relative;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px 0px #bbb;
+  margin-top:15px;
+}
+
+.categoryListChildrenList{
+  padding:5px 2px;
+  border-bottom: .5px  solid #ddd;
+}
+
+/* banner */
+.shopNowButton{
+  border:solid #b17659 2px;
+  border-radius: 20px;
+  padding:5px 10px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
 }
