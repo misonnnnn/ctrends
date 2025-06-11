@@ -81,6 +81,7 @@ a:hover {
   border-radius: 5px;
   position: relative;
   z-index: 99;
+  width: 100%;
   /* border: solid 1px #fff; */
   
 }
@@ -98,38 +99,42 @@ a:hover {
     transition:.3s;
 }
 
-/* .categoryOuterDivCaretTop,
-.categoryOuterDivCaretTop:after  {
-    content: "\0020";
-    display:block;
+
+.categoryOuterDivCaretTop_mini{
+    border-left: solid 15px transparent; 
+    border-right: solid 15px transparent; 
+    border-bottom: solid 15px #fff;
+    filter: drop-shadow(1px -5px #261f1f37);
+    height: 0; 
+    width: 0; 
     position:absolute;
-    top:-20px;
-    left: 11%;
-    z-index:999;
-    width: 0;
-    height: 0;
-    border: solid 20px transparent;
-    border-top: 0;
-    border-bottom-color:#ffffff;
-} */
-/* .categoryOuterDivCaretTop:after {
-    left: -20px;
-    top: -5px;
-    border-bottom-color:rgba(44, 41, 131, 0.095);
-} */
+    top:20px;
+    z-index: 1;
+    transition:.3s;
+}
+
 
 .categoryOuterList{
+  display: inline-block;
   position:relative;
+  margin-bottom:20px;
 }
-.categoryOuterList_1{
+
+.categoryOuterList:hover > div:nth-child(2){
+  display: block !important;
+  z-index: 999;
+}
+
+.categoryOuterList_menu{
   padding: 0 20px;
   position:relative;
   border-right:2px solid #fbfbfb;
   margin:0 5px;
   transition:.3s;
   cursor: pointer;
+  display: inline-block;
 }
-.categoryOuterList_1:hover{
+.categoryOuterList_menu:hover{
   transition:.3s;
   background-color: rgba(0, 0, 0, .2);
   color:#fff;
@@ -137,18 +142,28 @@ a:hover {
 }
 
 .categoryListChildren{
-  background:#fff;
-  padding:10px;
   width: 100%;
   position:relative;
-  border-radius: 3px;
-  box-shadow: 1px 1px 2px 0px #bbb;
-  margin-top:15px;
+ 
+  margin-top:0px;
+}
+.categoryListChildren > div{
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px 0px #bbb;
+    padding:10px;
+    background-color: #fff;
+    margin-top: 30px;
 }
 
-.categoryListChildrenList{
+.categoryListChildrenList_menu{
   padding:5px 2px;
   border-bottom: .5px  solid #ddd;
+}
+
+.categoryListChildrenList:hover div:nth-child(2){
+  display: block !important;
+  transition:.3s;
+  top:0px;
 }
 
 /* banner */

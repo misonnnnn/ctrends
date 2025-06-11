@@ -7,24 +7,24 @@ function FeaturedItem(){
     const [featuredProducts, setfeaturedProducts] = useState([]);
     const [featuredListLoading, setfeaturedListLoading] = useState(true); 
 
-    useEffect(() => {
-        fetch('https://asos2.p.rapidapi.com/products/v2/list?store=US&offset=0&categoryId=12949&country=US&sort=freshness&currency=USD&sizeSchema=US&limit=4&lang=en-US',{
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json', 
-            'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
-        },
-        })
-        .then(res => res.json())
-        .then(data => {
-            setfeaturedListLoading(false);
-            setfeaturedProducts(data.products)
-        })
-        .catch(err => {
-            console.error(err);
-            setfeaturedListLoading(false); 
-        });
-    }, []);
+    // useEffect(() => {
+    //     fetch('https://asos2.p.rapidapi.com/products/v2/list?store=US&offset=0&categoryId=12949&country=US&sort=freshness&currency=USD&sizeSchema=US&limit=4&lang=en-US',{
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json', 
+    //         'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
+    //     },
+    //     })
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         setfeaturedListLoading(false);
+    //         setfeaturedProducts(data.products)
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         setfeaturedListLoading(false); 
+    //     });
+    // }, []);
 
     if (featuredListLoading) {
         return (

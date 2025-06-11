@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import Categories from './Categories.jsx';
 //category id:bb2385ab-3f26-48cd-80f3-e7414bfb112
 
 //api keys 
@@ -55,21 +56,18 @@ function Navbar() {
     }
   } 
 
-  const menCategoryId = 4;
-  const womenCategoryId = 4;
   useEffect(()=>{
-    fetch('https://asos2.p.rapidapi.com/categories/list?country=US&lang=en-US',{
+    fetch('http://127.0.0.1:8000/asos/v1/categories/',{
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json', 
-        'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
+        // 'Content-Type': 'application/json', 
+        // 'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
       }
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        const menCategoryData = data.navigation[0].children[menCategoryId].children;
-        const womenCategoryData = data.navigation[1].children[womenCategoryId].children;
+        const menCategoryData = data['data'][0]['sub_categories'];
+        const womenCategoryData = data['data'][1]['sub_categories'];
         setMenCategoryList(menCategoryData)
         setWomenCategoryList(womenCategoryData)
       })
@@ -116,129 +114,16 @@ function Navbar() {
           </div>
         </div>
 
-        <div className={`position-absolute  start-0 top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
-          <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`}}></div>
-          <div className='categoryOuterDiv '>
-            <div className="d-flex">
-              {
-
-                menCategoryList.map((category, index)=>{
-                  const categoryTitle = category.content.title;
-                  const categoryImage = category.content.webLargeImageUrl
-                  return (
-                    <div className="categoryOuterList " key={index} >
-                        <div className='categoryOuterList_1' onClick={()=>(toggleMainCategoryVisibility(index))}>
-                          <div className="d-flex justify-content-center">
-                            <img src={`${categoryImage}`} className='shadow' height={20} alt="" />
-                          </div>
-                          <p className='p-0 m-0 text-uppercase s-f-size'>{categoryTitle} <FontAwesomeIcon icon={faCaretDown}/></p>
-                        </div>
-                        <div className={`position-absolute  categoryListChildren ${mainCategoryIndex === index ? '' : 'd-none'}`}>
-                          {
-                            category.children.map((categoryChild, categoryChildIndex) =>{
-                              if(!categoryChild.children.length) return null;
-                              const categoryChildName = categoryChild.content.title
-                              return (
-                                <div className=" s-f-size   position-relative" key={categoryChildIndex} >
-                                  <div className = 'categoryListChildrenList' onClick={()=>toggleCategoryChildVisibility(categoryChildIndex)}>
-                                    <a className="" href="#">
-                                      {categoryChildName}
-                                      <FontAwesomeIcon className='ms-1' icon={faCaretRight} />
-                                    </a>
-                                  </div>
-                                  <div className={`position-absolute ${categoryChildIndex === categoryChildElementIndex ? '' : 'd-none'}`} style={{marginLeft:'120px',zIndex:'999'}}>
-                                    {
-                                      categoryChild.children.map((categoryChildInnerData,categoryChildInnerDataIndex )=>{
-                                        const categoryChildInnerDataTitle = categoryChildInnerData.content.title;
-                                        const categoryID = categoryChildInnerData.link.categoryId;
-
-                                        return (
-                                          <div key={categoryChildInnerDataIndex} className='border-bottom border-light border-2 position-relative ' style={{width:'150px'}}>
-                                            <div className='primary_background px-2 py-2'>
-                                              
-                                              <Link className="text-light " to={`/products/${categoryID}`}>
-                                                {categoryChildInnerDataTitle} - {categoryID}
-                                              </Link>
-                                            </div>
-                                          </div>
-                                        )
-                                      })
-                                    }
-                                  </div>
-                                </div>
-                              )
-                            })
-                          }
-                        </div>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>
+        <div className={`position-absolute  start-50 translate-middle-x top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
+          <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
+          <Categories data={menCategoryList}/>
         </div>
 
-        <div className={`position-absolute  start-0 top-0 ${activeNavForWomen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
-          <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`}}></div>
-          <div className='categoryOuterDiv'>
-            <div className="d-flex">
-              {
-
-                womenCategoryList.map((category, index)=>{
-                  const categoryTitle = category.content.title;
-                  const categoryImage = category.content.webLargeImageUrl
-                  return (
-                    <div className="categoryOuterList " key={index} >
-                        <div className='categoryOuterList_1' onClick={()=>(toggleMainCategoryVisibility(index))}>
-                          <div className="d-flex justify-content-center">
-                            <img src={`${categoryImage}`} className='shadow' height={20} alt="" />
-                          </div>
-                          <p className='p-0 m-0 text-uppercase s-f-size'>{categoryTitle} <FontAwesomeIcon icon={faCaretDown}/></p>
-                        </div>
-                        <div className={`position-absolute  categoryListChildren ${mainCategoryIndex === index ? '' : 'd-none'}`}>
-                          {
-                            category.children.map((categoryChild, categoryChildIndex) =>{
-                              if(!categoryChild.children.length) return null;
-                              const categoryChildName = categoryChild.content.title
-                              return (
-                                <div className=" s-f-size   position-relative" key={categoryChildIndex} >
-                                  <div className = 'categoryListChildrenList' onClick={()=>toggleCategoryChildVisibility(categoryChildIndex)}>
-                                    <a className="" href="#">
-                                      {categoryChildName}
-                                      <FontAwesomeIcon className='ms-1' icon={faCaretRight} />
-                                    </a>
-                                  </div>
-                                  <div className={`position-absolute ${categoryChildIndex === categoryChildElementIndex ? '' : 'd-none'}`} style={{marginLeft:'120px',zIndex:'999'}}>
-                                    {
-                                      categoryChild.children.map((categoryChildInnerData,categoryChildInnerDataIndex )=>{
-                                        const categoryChildInnerDataTitle = categoryChildInnerData.content.title;
-                                        const categoryID = categoryChildInnerData.link.categoryId;
-
-                                        return (
-                                          <div key={categoryChildInnerDataIndex} className='border-bottom border-light border-2 position-relative ' style={{width:'150px'}}>
-                                            <div className='primary_background px-2 py-2'>
-                                              
-                                              <Link className="text-light " to={`/products/${categoryID}`}>
-                                                {categoryChildInnerDataTitle} - {categoryID}
-                                              </Link>
-                                            </div>
-                                          </div>
-                                        )
-                                      })
-                                    }
-                                  </div>
-                                </div>
-                              )
-                            })
-                          }
-                        </div>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>
+        <div className={`position-absolute  start-50 translate-middle-x top-0   ${activeNavForWomen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
+          <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
+          <Categories data={womenCategoryList}/>
         </div>
+        
       </div>
   );
 }
