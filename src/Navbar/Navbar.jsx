@@ -57,7 +57,7 @@ function Navbar() {
   } 
 
   useEffect(()=>{
-    fetch('http://127.0.0.1:8000/asos/v1/categories/',{
+    fetch('https://lightsalmon-otter-774319.hostingersite.com/asos/v1/categories',{
       method: 'GET',
       headers: {
         // 'Content-Type': 'application/json', 
