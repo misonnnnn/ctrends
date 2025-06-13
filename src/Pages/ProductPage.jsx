@@ -12,16 +12,27 @@ function ProductPage() {
 
   useEffect(()=>{
     setProductList([])
-    fetch(`https://asos2.p.rapidapi.com/products/v2/list?store=US&offset=0&categoryId=${categoryId}&country=US&sort=freshness&currency=USD&sizeSchema=US&limit=48&lang=en-US`,{
+    fetch(`https://lightsalmon-otter-774319.hostingersite.com/asos/v1/products?categoryid=${categoryId}&per_page=100`,{
       method:'GET',
       headers: {
-        'Content-Type': 'application/json', 
-        'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
+        
       },
     })
     .then(res => res.json())
     .then(data =>{
-      setProductList(data)
+        let productsData = {
+          category_name: data.category_name,
+          product_list: [] // ← make this an array
+        };
+
+        if (data.data.data.length) {
+          data.data.data.forEach((product, index) => {
+              let extra_info = product.extra_info ? JSON.parse(product.extra_info) : [];
+              productsData.product_list.push(extra_info); 
+          });
+      }
+      console.log(productsData);
+      setProductList(productsData);
     })
   }, [categoryId])
 
@@ -41,11 +52,11 @@ function ProductPage() {
     <>
       <div className="" style={{marginTop:'20px'}}>
         <div>
-          <h6 className="text-uppercase">{productList.categoryName}</h6>
-          <hr />
+          {/* <hr /> */}
           <div className="container-fluid">
+            <h6 className="text-uppercase px-2">{productList.category_name}</h6>
             {
-              productList.products?.map((product, productIndex) => {
+              productList.product_list?.map((product, productIndex) => {
                 const isProductHovered = isProductHoveredIndex === productIndex;
                 return(
                   <div className="d-inline-block" key={productIndex}>

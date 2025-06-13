@@ -6,24 +6,31 @@ function ProductList() {
   const [products, setProducts] = useState([]);
   const [productListLoading, setProductListLoading] = useState(true); 
 
-  // useEffect(() => {
-  //   fetch('https://asos2.p.rapidapi.com/products/v2/list?store=US&offset=0&categoryId=2623&country=US&sort=freshness&currency=USD&sizeSchema=US&limit=48&lang=en-US',{
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json', 
-  //       'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
-  //     },
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setProductListLoading(false);
-  //       setProducts(data.products)
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //       setProductListLoading(false); 
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('https://lightsalmon-otter-774319.hostingersite.com/asos/v1/products?categoryid=21508&per_page=18',{
+      method: 'GET',
+      headers: {
+        // 'Content-Type': 'application/json', 
+        // 'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        let productsData = [];
+        if(data.data.data.length){
+            data.data.data.map((products,index)=>{
+                let extra_info = products.extra_info ? JSON.parse(products.extra_info) : [];
+                productsData[index] = extra_info;
+            })
+        }
+        setProductListLoading(false);
+        setProducts(productsData)
+      })
+      .catch(err => {
+        console.error(err);
+        setProductListLoading(false); 
+      });
+  }, []);
 
   if (productListLoading) {
     return (
@@ -37,7 +44,7 @@ function ProductList() {
 
   return (
     <div className="row" style={{marginTop: '100px'}}>
-      <h6>Women's New In: Clothing</h6>
+      <h6>Clothing: Classics</h6>
       {products.map(product => (
         <div className="col-lg-2 col-md-4 col-sm-4 col-sx-6 col-6 mb-4 position-relative" key={product.id}>
           <div className="card h-100">
