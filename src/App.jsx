@@ -7,6 +7,7 @@ import Template from './Template';
 import './App.css'
 import './assets/fonts/fonts.css'
 import ProductDetails from './Pages/ProductDetails';
+import PageNotFound from './Pages/PageNotFound';
 
 
 function App(){
@@ -17,6 +18,7 @@ function App(){
           <Route index element={<HomePage />} />
           <Route path='/products/:categoryId' element={<ProductPage />} />
           <Route path='/product-details/*' element={<ProductDetails />} />
+           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
     </Router>
