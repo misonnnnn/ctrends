@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import config from "../config";
 //api keys
 //1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
 //fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1
@@ -9,7 +10,7 @@ function FeaturedItem(){
 
     const featuredIteamCategoryID = 12949;
     useEffect(() => {
-        fetch(`https://lightsalmon-otter-774319.hostingersite.com/asos/v1/products?categoryid=${featuredIteamCategoryID}&per_page=4`,{
+        fetch(`${config.API_URL}/asos/v1/products?categoryid=${featuredIteamCategoryID}&per_page=4`,{
         method: 'GET',
         headers: {
            

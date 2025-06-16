@@ -6,7 +6,7 @@
 
   color-scheme: light dark;
   color: rgba(99, 96, 96, 0.87);
-  background-color: #eee;
+  background-color: #fffaf0;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -128,7 +128,7 @@ a:hover {
 .categoryOuterList_menu{
   padding: 0 20px;
   position:relative;
-  border-right:2px solid #fbfbfb;
+  border-right:1px solid #b17659;
   margin:0 5px;
   transition:.3s;
   cursor: pointer;
@@ -136,9 +136,9 @@ a:hover {
 }
 .categoryOuterList_menu:hover{
   transition:.3s;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, .05);
   color:#fff;
-  border-radius: 10px 0 0 10px;
+  /* border-radius: 10px 0 0 10px; */
 }
 
 .categoryListChildren{

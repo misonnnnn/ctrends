@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import config from '../config';
+
 //api keys
 //1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
 //fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1
@@ -12,7 +14,7 @@ function ProductPage() {
 
   useEffect(()=>{
     setProductList([])
-    fetch(`https://lightsalmon-otter-774319.hostingersite.com/asos/v1/products?categoryid=${categoryId}&per_page=100`,{
+    fetch(`${config.API_URL}/asos/v1/products?categoryid=${categoryId}&per_page=100`,{
       method:'GET',
       headers: {
         
@@ -53,27 +55,34 @@ function ProductPage() {
       <div className="" style={{marginTop:'20px'}}>
         <div>
           {/* <hr /> */}
-          <div className="container-fluid">
-            <h6 className="text-uppercase px-2">{productList.category_name}</h6>
-            {
-              productList.product_list?.map((product, productIndex) => {
-                const isProductHovered = isProductHoveredIndex === productIndex;
-                return(
-                  <div className="d-inline-block" key={productIndex}>
-                    <div className={`position-relative m-1 card p-2 pb-5`} style={{width:'200px'}}>
-                      <div className="w-100 ">
-                        <img src={isProductHovered ? `https://${product.additionalImageUrls[0]}` : `https://${product.imageUrl}`} className="w-100" alt="" 
-                        onMouseEnter={() => setIsProductHoveredIndex(productIndex)}
-                        onMouseLeave={() => setIsProductHoveredIndex(null)}
-                        />
+          <div className="container-fluid position-relative">
+            <div className="position-relative start-50 translate-middle-x " style={{width:'98%'}}>
+              <h6 className="text-uppercase px-2">{productList.category_name}</h6>
+              <div className="text-center">
+              {
+                productList.product_list?.map((product, productIndex) => {
+                  console.log(product)
+                  const isProductHovered = isProductHoveredIndex === productIndex;
+                  return(
+                    <Link to={`/product-details/${product.url}`}>
+                      <div className="d-inline-block" key={productIndex}>
+                        <div className={`position-relative m-1 rounded-1 border border-1 p-2 pb-5`} style={{width:'150px'}}>
+                          <div className="w-100 ">
+                            <img src={isProductHovered ? `https://${product.additionalImageUrls[0]}` : `https://${product.imageUrl}`} className="w-100" alt="" 
+                            onMouseEnter={() => setIsProductHoveredIndex(productIndex)}
+                            onMouseLeave={() => setIsProductHoveredIndex(null)}
+                            />
+                          </div>
+                          <p className="m-0 s-f-size text-truncate primary_color fw-bold" title={product.name}>{product.name}</p>
+                          <p className="fw-bold text-success position-absolute bottom-0 mb-1">{product.price.current.text} <span className="text-muted s-f-size fw-normal">{product.price.currency} </span></p>
+                        </div>
                       </div>
-                      <p className="m-0 s-f-size text-truncate primary_color fw-bold" title={product.name}>{product.name}</p>
-                      <p className="fw-bold text-success position-absolute bottom-0 mb-1">{product.price.current.text} <span className="text-muted s-f-size fw-normal">{product.price.currency} </span></p>
-                    </div>
-                  </div>
-                )
-              })
-            }
+                    </Link>
+                  )
+                })
+              }
+              </div>
+            </div>
           </div>
         </div>
       </div>

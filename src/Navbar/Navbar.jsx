@@ -6,6 +6,8 @@ import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import Categories from './Categories.jsx';
+import config from '../config.js';
+import LoadingDiv from '../utils/LoadingDiv.jsx';
 //category id:bb2385ab-3f26-48cd-80f3-e7414bfb112
 
 //api keys 
@@ -56,7 +58,7 @@ function Navbar() {
   } 
 
   useEffect(()=>{
-    fetch('https://lightsalmon-otter-774319.hostingersite.com/asos/v1/categories',{
+    fetch(`${config.API_URL}/asos/v1/categories`,{
       method: 'GET',
       headers: {
         // 'Content-Type': 'application/json', 
@@ -82,7 +84,7 @@ function Navbar() {
   return (
       <div className="w-100 shadow-sm d-flex justify-content-between align-items-center bg-light sticky-top customNav">
         <div className='d-flex justify-content align-items-center position-relative'>
-          <h3 className='m-0' style={{fontFamily: 'VeganStyle'}}>E-shop</h3>
+          <h3 className='m-0 ms-1' style={{fontFamily: 'VeganStyle'}}>E-shop</h3>
           <div className='position-relative d-flex h-100  top-0' style={{marginLeft:'50px'}}>
             <div className='navMenu navMenu_men' onClick={()=> toggleMenWomenCategory('men')}>
               <span className='px-2 py-5' ref={navMenuRefForMen}>MEN</span>
@@ -108,23 +110,15 @@ function Navbar() {
           <div className='me-2'>
             <p className='p-0 m-0'>
               <img src={UserIcon} alt="" height={20}/>
-              Login
+              Login 
             </p>
           </div>
         </div>
 
         <div className={`position-absolute  start-50 translate-middle-x top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
           <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
-
           {
-            isNavigationLoaded ? <Categories data={menCategoryList}/> :
-              (
-              <div className="d-flex justify-content-center align-items-center bg-light p-2 shadow" style={{ }}>
-                  <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                  </div>
-              </div>
-              )
+            isNavigationLoaded ? <Categories data={menCategoryList}/> :  <LoadingDiv />
           }
 
         </div>
@@ -132,14 +126,7 @@ function Navbar() {
         <div className={`position-absolute  start-50 translate-middle-x top-0   ${activeNavForWomen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
           <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
           {
-            isNavigationLoaded ? <Categories data={womenCategoryList}/> :
-              (
-              <div className="d-flex justify-content-center align-items-center bg-light p-2 shadow" style={{ }}>
-                  <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                  </div>
-              </div>
-              )
+            isNavigationLoaded ? <Categories data={womenCategoryList}/> :  <LoadingDiv />
           }
         </div>
         

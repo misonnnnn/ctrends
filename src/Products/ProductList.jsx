@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import config from '../config';
 //api keys
 //1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
 //fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1
@@ -7,7 +8,7 @@ function ProductList() {
   const [productListLoading, setProductListLoading] = useState(true); 
 
   useEffect(() => {
-    fetch('https://lightsalmon-otter-774319.hostingersite.com/asos/v1/products?categoryid=21508&per_page=18',{
+    fetch(`${config.API_URL}/asos/v1/products?categoryid=21508&per_page=18`,{
       method: 'GET',
       headers: {
         // 'Content-Type': 'application/json', 
