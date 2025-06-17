@@ -36,7 +36,7 @@ function Categories({data}){
                                     <div className=" s-f-size categoryListChildrenList  position-relative" key={categoryChildIndex} >
 
                                     <div className = 'categoryListChildrenList_menu' >
-                                        <button className="border-0 bg-light" href="#">
+                                        <button className="border-0 bg-light" >
                                         {categoryChildName}
                                         <FontAwesomeIcon className='ms-1' icon={faCaretRight} />
                                         </button>

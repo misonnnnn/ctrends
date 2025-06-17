@@ -64,8 +64,8 @@ function ProductPage() {
                   console.log(product)
                   const isProductHovered = isProductHoveredIndex === productIndex;
                   return(
-                    <Link to={`/product-details/${product.url}`}>
-                      <div className="d-inline-block" key={productIndex}>
+                    <Link to={`/product-details/${product.url}`} key={productIndex}>
+                      <div className="d-inline-block" >
                         <div className={`position-relative m-1 rounded-1 border border-1 p-2 pb-5`} style={{width:'150px'}}>
                           <div className="w-100 ">
                             <img src={isProductHovered ? `https://${product.additionalImageUrls[0]}` : `https://${product.imageUrl}`} className="w-100" alt="" 

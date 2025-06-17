@@ -82,10 +82,9 @@ function Navbar() {
   useEffect(() => {
   const handleClickOutside = (event) => {
     if (
-      navWrapperRef.current &&
-      !navWrapperRef.current.contains(event.target) &&
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target)
+      !navWrapperRef.current?.contains(event.target) &&
+      !dropdownRefMen.current?.contains(event.target) &&
+      !dropdownRefWomen.current?.contains(event.target)
     ) {
       setActiveNavForMen(false);
       setActiveNavForWomen(false);
@@ -125,7 +124,8 @@ useEffect(() => {
 
 
   const navWrapperRef = useRef(null);
-  const dropdownRef = useRef(null);
+  const dropdownRefMen = useRef(null);
+  const dropdownRefWomen = useRef(null);
   return (
       <div className="w-100 shadow-sm d-flex justify-content-between align-items-center bg-light sticky-top customNav">
         <div ref={navWrapperRef}>
@@ -161,7 +161,7 @@ useEffect(() => {
             </p>
           </div>
         </div>
-        <div ref={dropdownRef} className={`position-absolute  start-50 translate-middle-x top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
+        <div ref={dropdownRefMen} className={`position-absolute  start-50 translate-middle-x top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
           <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
           {
             isNavigationLoaded ? <Categories data={menCategoryList}/> :  <LoadingDiv />
@@ -169,7 +169,7 @@ useEffect(() => {
 
         </div>
 
-        <div ref={dropdownRef} className={`position-absolute  start-50 translate-middle-x top-0   ${activeNavForWomen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
+        <div ref={dropdownRefWomen} className={`position-absolute  start-50 translate-middle-x top-0   ${activeNavForWomen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
           <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
           {
             isNavigationLoaded ? <Categories data={womenCategoryList}/> :  <LoadingDiv />
