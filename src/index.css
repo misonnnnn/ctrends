@@ -44,6 +44,13 @@ a:hover {
 }
 
 
+@media (min-width: 768px) {
+  .w-md-100 {
+    width: 100% !important;
+  }
+}
+
+
 /* navbar */
 .customNav{
   border-bottom:solid 2px #b17659

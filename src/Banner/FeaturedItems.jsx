@@ -47,12 +47,12 @@ function FeaturedItem(){
 
 
     return (
-        <div className="container mt-2">
+        <div className="container py-5 ">
             <div className="p-5">
                 <h5 className="text-center">Our Featured Items</h5>
                 <p className="text-center">Timeless pieces. Effortless style. Explore our featured collection crafted for those who wear confidence every day.</p>
             </div>
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center ">
                 <div className="w-75">
                     <div className="row">
                         {featuredProducts?.map(featuredProduct => (

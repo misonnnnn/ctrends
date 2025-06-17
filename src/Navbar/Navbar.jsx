@@ -84,7 +84,7 @@ function Navbar() {
   return (
       <div className="w-100 shadow-sm d-flex justify-content-between align-items-center bg-light sticky-top customNav">
         <div className='d-flex justify-content align-items-center position-relative'>
-          <h3 className='m-0 ms-1' style={{fontFamily: 'VeganStyle'}}>E-shop</h3>
+          <Link to="/"><h3 className='m-0 ms-1' style={{fontFamily: 'VeganStyle'}}>E-shop</h3></Link>
           <div className='position-relative d-flex h-100  top-0' style={{marginLeft:'50px'}}>
             <div className='navMenu navMenu_men' onClick={()=> toggleMenWomenCategory('men')}>
               <span className='px-2 py-5' ref={navMenuRefForMen}>MEN</span>

@@ -2,3 +2,11 @@
   background: linear-gradient(to left, transparent 50%, white 100%);
   pointer-events: none;
 }
+
+
+@media screen and (max-width: 1200px){
+  .brandsOuterDiv {
+    height:auto !important;
+    margin-bottom:50px;
+  }
+}

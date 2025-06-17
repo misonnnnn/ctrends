@@ -3,13 +3,16 @@ import Navbar from '../Navbar/Navbar';
 import ProductList from '../Products/ProductList';
 import Banner from '../Banner/Banner';
 import FeaturedItem from '../Banner/FeaturedItems';
+import Brands from '../Banner/Brands';
 
 function HomePage() {
   return ( 
     <>
       <Banner />
+      <Brands />
       <FeaturedItem />
-      <div className="container mt-5">
+      <hr />
+      <div className="container ">
         <ProductList />
       </div>
     </>

@@ -44,8 +44,8 @@ function ProductList() {
   }
 
   return (
-    <div className="row" style={{marginTop: '100px'}}>
-      <h6>Clothing: Classics</h6>
+    <div className="row" style={{marginTop: '50px'}}>
+      <h5 className='text-decoration-underline text-center text-md-left w-100'>The Classics</h5>
       {products.map(product => (
         <div className="col-lg-2 col-md-4 col-sm-4 col-sx-6 col-6 mb-4 position-relative" key={product.id}>
           <div className="card h-100">
