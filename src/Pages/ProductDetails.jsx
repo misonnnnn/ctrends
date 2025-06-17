@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import config from "../config";
 import PageNotFound from "./PageNotFound";
 import LoadingDiv from "../utils/LoadingDiv";
 import '../product-details.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 
 function ProductDetails(){
     const location = useLocation();
@@ -49,16 +51,28 @@ function ProductDetails(){
                 setProductName(data.data.name);
                 setProductPrice(data.data.price.current.text)
                 setProductBrand(data.data.brandName)
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }else{
                 setIsProductNotFound(true)
             }
         })
     }, [])
 
+    const navigate = useNavigate();
+
+    const handleBack = () => {
+        navigate(-1); 
+    };
+
+   
+
     if(isProductLoaded){
          return (
             <>
-                <div className="container mt-5">
+                <div className="container">
+                    <button className="my-3 btn btn-sm btn-default" onClick={handleBack}>
+                        <FontAwesomeIcon icon ={faCaretLeft} /> Go back
+                    </button>
                     <div className="row">
                         {/* Product Images */}
                         <div className="col-md-7 mb-2">
