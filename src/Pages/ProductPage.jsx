@@ -32,6 +32,7 @@ function ProductPage() {
               let extra_info = product.extra_info ? JSON.parse(product.extra_info) : [];
               productsData.product_list.push(extra_info); 
           });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
       }
       console.log(productsData);
       setProductList(productsData);
