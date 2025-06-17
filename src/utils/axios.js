@@ -4,7 +4,7 @@ import config from '../config';
 
 // Set base URL of your Laravel API
 const API = axios.create({
-  baseURL: `${config.API_URL}/asos/v1`,
+  baseURL: `${config.API_URL}/api/asos/v1`,
 });
 
 // Add token to Authorization header
