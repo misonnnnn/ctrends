@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
-import config from "../config";
 import PageNotFound from "./PageNotFound";
 import LoadingDiv from "../utils/LoadingDiv";
 import '../product-details.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import API from "../utils/axios";
 
 function ProductDetails(){
     const location = useLocation();
     const path = location.pathname; 
     const cleanedPath = path.replace(/^\/?product-details\/?/, '');
-    const api_url = `${config.API_URL}/asos/v1/products/details/${cleanedPath}`;
+    const api_url_path = `/products/details/${cleanedPath}`;
 
 
     const [isProductLoaded, setIsProductLoaded] = useState(false);
@@ -33,24 +33,21 @@ function ProductDetails(){
         setMainImage(src);
         setActiveIndex(index);
     };
-    
+
     useEffect(()=>{
-        fetch(api_url,{
-            method:'GET',
-        }).then(res => res.json())
-        .then(data =>{
-            console.log(data)
-            if(data.success){
-                setMainImage(`https://${data.data.imageUrl}`)
+        API.get(api_url_path)
+        .then(res =>{
+            if(res.data.success){
+                setMainImage(`https://${res.data.data.imageUrl}`)
                 setIsProductLoaded(true);
-                const additionalImageUrls = [`https://${data.data.imageUrl}`];
-                data.data.additionalImageUrls.forEach(imageUrlsPath => {
+                const additionalImageUrls = [`https://${res.data.data.imageUrl}`];
+                res.data.data.additionalImageUrls.forEach(imageUrlsPath => {
                     additionalImageUrls.push(`https://${imageUrlsPath}`)
                 });
                 setThumbnails(additionalImageUrls);
-                setProductName(data.data.name);
-                setProductPrice(data.data.price.current.text)
-                setProductBrand(data.data.brandName)
+                setProductName(res.data.data.name);
+                setProductPrice(res.data.data.price.current.text)
+                setProductBrand(res.data.data.brandName)
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }else{
                 setIsProductNotFound(true)

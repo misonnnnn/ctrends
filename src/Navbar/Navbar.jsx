@@ -8,6 +8,7 @@ import { faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import Categories from './Categories.jsx';
 import config from '../config.js';
 import LoadingDiv from '../utils/LoadingDiv.jsx';
+import API from '../utils/axios.js';
 //category id:bb2385ab-3f26-48cd-80f3-e7414bfb112
 
 //api keys 
@@ -58,18 +59,11 @@ function Navbar() {
   } 
 
   useEffect(()=>{
-    fetch(`${config.API_URL}/asos/v1/categories`,{
-      method: 'GET',
-      headers: {
-        // 'Content-Type': 'application/json', 
-        // 'X-RapidAPI-Key': 'fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1' 
-      }
-      })
-      .then(res => res.json())
-      .then(data => {
+    API.get(`/categories`)
+      .then(res => {
         setIsNavigationLoaded(true)
-        const menCategoryData = data['data'][0]['sub_categories'];
-        const womenCategoryData = data['data'][1]['sub_categories'];
+        const menCategoryData = res.data['data'][0]['sub_categories'];
+        const womenCategoryData = res.data['data'][1]['sub_categories'];
         setMenCategoryList(menCategoryData)
         setWomenCategoryList(womenCategoryData)
       })

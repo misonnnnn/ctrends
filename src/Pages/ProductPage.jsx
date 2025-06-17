@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import config from '../config';
+import API from "../utils/axios";
 
 //api keys
 //1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
@@ -14,14 +13,9 @@ function ProductPage() {
 
   useEffect(()=>{
     setProductList([])
-    fetch(`${config.API_URL}/asos/v1/products?categoryid=${categoryId}&per_page=100`,{
-      method:'GET',
-      headers: {
-        
-      },
-    })
-    .then(res => res.json())
-    .then(data =>{
+    API.get(`/products?categoryid=${categoryId}&per_page=100`)
+    .then(res =>{
+      const data = res.data;
         let productsData = {
           category_name: data.category_name,
           product_list: [] // ← make this an array
@@ -33,7 +27,7 @@ function ProductPage() {
               productsData.product_list.push(extra_info); 
           });
           window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+        }
       console.log(productsData);
       setProductList(productsData);
     })

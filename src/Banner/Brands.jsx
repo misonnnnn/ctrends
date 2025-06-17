@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react"
-import config from "../config"
-import { iconName } from "@fortawesome/free-solid-svg-icons/fa0";
-
+import API from "../utils/axios";
 
 function Brands(){
     const [imageUrlPathList, setImageUrlPathList] = useState([]);
 
     useEffect(()=>{
-        fetch(`${config.API_URL}/asos/v1/product-brands-images`,{
-            method: 'GET'
-        }).then(res => res.json())
-        .then(data =>{
-            if(data.success){
-                setImageUrlPathList(data.data)
+        API.get(`/product-brands-images`)
+        .then(res =>{
+            if(res.data.success){
+                setImageUrlPathList(res.data.data)
             }
         })
-
     }, [])
 
     
@@ -24,7 +19,6 @@ function Brands(){
             <h5 className="">Brands</h5>
             {
                 imageUrlPathList?.map((imageUrl, index) =>{
-                    console.log(imageUrl)
                     return (
                         <div className="d-inline-block" key={index} style={{width: '100px'}}>
                             <img src={`${imageUrl}`} alt="imageUrl" className="w-75 w-md-100" />
