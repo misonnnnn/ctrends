@@ -62,7 +62,6 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  position:relative; 
   height: 60px;
 }
 
@@ -71,6 +70,10 @@ a:hover {
 }
 .navMenu_women {
   background: #c8ac9e;
+}
+
+.navMenu_men:hover .categoryOuterForMen{
+  display: block !important;
 }
 
 .navMenu:hover{
@@ -82,9 +85,10 @@ a:hover {
 .categoryOuterDiv{
   /* background: #B17659; */
   background-color: #fff;
-  background: linear-gradient(90deg,rgb(243, 200, 178) 0%, rgba(255, 255, 255, 1) 100%);
+  /* background: linear-gradient(90deg,rgb(243, 200, 178) 0%, rgba(255, 255, 255, 1) 100%); */
   padding:10px;
-  box-shadow: 1px 1px 3px 0px #777 !important;
+  border:solid 1px #aaa;
+  /* box-shadow: 1px 1px 3px 0px #777 !important; */
   border-radius: 5px;
   position: relative;
   z-index: 99;
@@ -135,7 +139,8 @@ a:hover {
 .categoryOuterList_menu{
   padding: 0 20px;
   position:relative;
-  border-right:1px solid #b17659;
+  /* border-right:1px solid #b17659; */
+  border-right:1px solid #c5bfbb;
   margin:0 5px;
   transition:.3s;
   cursor: pointer;

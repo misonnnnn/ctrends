@@ -79,18 +79,65 @@ function Navbar() {
   },[])
 
 
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      navWrapperRef.current &&
+      !navWrapperRef.current.contains(event.target) &&
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target)
+    ) {
+      setActiveNavForMen(false);
+      setActiveNavForWomen(false);
+    }
+  };
+
+  document.addEventListener("click", handleClickOutside);
 
 
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
+}, []);
+
+useEffect(() => {
+  const handleLinkClick = (event) => {
+    const target = event.target;
+
+    // Check if the clicked element is a <a> or inside a Link (<a>)
+    if (
+      target.tagName === 'A' ||
+      target.closest('a')
+    ) {
+      setActiveNavForMen(false);
+      setActiveNavForWomen(false);
+    }
+  };
+
+  document.addEventListener('click', handleLinkClick);
+
+  return () => {
+    document.removeEventListener('click', handleLinkClick);
+  };
+}, []);
+
+
+
+
+  const navWrapperRef = useRef(null);
+  const dropdownRef = useRef(null);
   return (
       <div className="w-100 shadow-sm d-flex justify-content-between align-items-center bg-light sticky-top customNav">
-        <div className='d-flex justify-content align-items-center position-relative'>
-          <Link to="/"><h3 className='m-0 ms-1' style={{fontFamily: 'VeganStyle'}}>E-shop</h3></Link>
-          <div className='position-relative d-flex h-100  top-0' style={{marginLeft:'50px'}}>
-            <div className='navMenu navMenu_men' onClick={()=> toggleMenWomenCategory('men')}>
-              <span className='px-2 py-5' ref={navMenuRefForMen}>MEN</span>
-            </div>
-            <div className='navMenu navMenu_women' onClick={()=> toggleMenWomenCategory('women')}>
-              <span className='px-2 py-5' ref={navMenuRefForWomen}>WOMEN</span>
+        <div ref={navWrapperRef}>
+          <div className='d-flex justify-content align-items-center position-relative'>
+            <Link to="/"><h3 className='m-0 ms-1' style={{fontFamily: 'VeganStyle'}}>E-shop</h3></Link>
+            <div className='position-relative d-flex h-100  top-0' style={{marginLeft:'50px'}}>
+              <div className='navMenu navMenu_men' onClick={()=> toggleMenWomenCategory('men')}>
+                <span className='px-2 py-5' ref={navMenuRefForMen}>MEN</span>
+              </div>
+              <div className='navMenu navMenu_women' onClick={()=> toggleMenWomenCategory('women')}>
+                <span className='px-2 py-5' ref={navMenuRefForWomen}>WOMEN</span>
+              </div>
             </div>
           </div>
         </div>
@@ -114,8 +161,7 @@ function Navbar() {
             </p>
           </div>
         </div>
-
-        <div className={`position-absolute  start-50 translate-middle-x top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
+        <div ref={dropdownRef} className={`position-absolute  start-50 translate-middle-x top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
           <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
           {
             isNavigationLoaded ? <Categories data={menCategoryList}/> :  <LoadingDiv />
@@ -123,7 +169,7 @@ function Navbar() {
 
         </div>
 
-        <div className={`position-absolute  start-50 translate-middle-x top-0   ${activeNavForWomen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
+        <div ref={dropdownRef} className={`position-absolute  start-50 translate-middle-x top-0   ${activeNavForWomen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>
           <div className='categoryOuterDivCaretTop' style={{left : `${navMenuPositionFromLeft}px`,marginLeft:'-5%'}}></div>
           {
             isNavigationLoaded ? <Categories data={womenCategoryList}/> :  <LoadingDiv />
