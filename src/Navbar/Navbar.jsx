@@ -9,12 +9,17 @@ import Categories from './Categories.jsx';
 import config from '../config.js';
 import LoadingDiv from '../utils/LoadingDiv.jsx';
 import API from '../utils/axios.js';
+import { isLoggedIn } from '../utils/authService.js';
+import { useAuth } from '../Context/AuthContext';
+
 //category id:bb2385ab-3f26-48cd-80f3-e7414bfb112
 
 //api keys 
 //1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
 //fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1
 function Navbar() {
+  const { isLogin, logout } = useAuth();
+
   const {SearchIcon, CartIcon, UserIcon} = Icons;
   const [menCategoryList, setMenCategoryList] = useState([]);
   const [womenCategoryList, setWomenCategoryList] = useState([]);
@@ -72,6 +77,24 @@ function Navbar() {
       })
   },[])
 
+  const [userDetails, setUserDetails] = useState({});
+
+  useEffect(() => {
+    console.log(isLogin)
+
+    if (!isLogin){
+      setUserDetails({});
+      return;
+    }  
+
+    API.get('/me')
+      .then(res => {
+        setUserDetails(res.data);
+      })
+      .catch(err => {
+        console.error('Failed to fetch user details:', err);
+      });
+  }, [isLogin]);
 
   useEffect(() => {
   const handleClickOutside = (event) => {
@@ -148,11 +171,19 @@ useEffect(() => {
                <img src={CartIcon} alt="" height={20}/> 
             </p>
           </div>
-          <div className='me-2'>
-            <p className='p-0 m-0'>
+          <div className='me-2 d-block '>
+            <div className='d-flex justify-content-center'>
               <img src={UserIcon} alt="" height={20}/>
-              Login 
-            </p>
+            </div>
+            <div>
+              {
+                isLogin && userDetails.name ? (
+                  <Link to="/dashboard">{userDetails.name}</Link>
+                ) : (
+                  <Link to="/login">Login</Link>
+                )
+              }
+            </div>
           </div>
         </div>
         <div ref={dropdownRefMen} className={`position-absolute  start-50 translate-middle-x top-0  ${activeNavForMen ? "d-block" : "d-none"}`} style={{zIndex: '99', marginTop:'73px', width :'90%'}}>

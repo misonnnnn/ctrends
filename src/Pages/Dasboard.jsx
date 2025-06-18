@@ -1,10 +1,12 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { logout } from "../utils/authService";
 
 function Dashboard(){
+    const navigate = useNavigate();
+
     const handleLogout = async () => {
         await logout();
-        Navigate('/login');
+        navigate('/login');
     };
 
     return (
