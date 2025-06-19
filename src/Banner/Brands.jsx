@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import API from "../utils/axios";
+import '../brand.css'
 
 function Brands(){
     const [imageUrlPathList, setImageUrlPathList] = useState([]);
@@ -16,11 +17,11 @@ function Brands(){
     
     return (
         <div className="text-center" > 
-            <h5 className="">Brands</h5>
+            <h5 className="">Top brands</h5>
             {
                 imageUrlPathList?.map((imageUrl, index) =>{
                     return (
-                        <div className="d-inline-block" key={index} style={{width: '100px'}}>
+                        <div className="d-inline-block brandImageDiv position-relative" key={index} style={{width: '100px'}}>
                             <img src={`${imageUrl}`} alt="imageUrl" className="w-75 w-md-100" />
                         </div>
                     )

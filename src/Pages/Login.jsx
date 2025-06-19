@@ -11,11 +11,14 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const { loginSuccess } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate('/dashboard'); // ✅ Redirect after login
+      loginSuccess();
+      navigate('/');
     } catch (err) {
       setError('Invalid email or password');
     }

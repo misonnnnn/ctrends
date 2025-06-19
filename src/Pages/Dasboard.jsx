@@ -1,8 +1,9 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import { logout } from "../utils/authService";
+import { useAuth } from "../Context/AuthContext";
 
 function Dashboard(){
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const handleLogout = async () => {
         await logout();

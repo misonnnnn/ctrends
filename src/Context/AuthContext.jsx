@@ -8,8 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(isLoggedIn());
 
   const logout = async () => {
-    await doLogout();
     setIsLogin(false);
+    await doLogout();
   };
 
   const loginSuccess = () => {

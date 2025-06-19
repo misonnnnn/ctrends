@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import API from "../utils/axios";
+import Modal from "../utils/Modal";
+import ProductDetails from "./ProductDetails";
 
 //api keys
 //1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
 //fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1
 
+
+
+
 function ProductPage() {
   const { categoryId } = useParams()
   const [productList , setProductList] = useState([]);
   const [isProductHoveredIndex, setIsProductHoveredIndex] = useState(null)
+  const [modalOpen, setModalOpen] = useState(false);
+  const [productUrl, setProductUrl] = useState(null);
 
   useEffect(()=>{
     setProductList([])
@@ -28,7 +35,6 @@ function ProductPage() {
           });
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      console.log(productsData);
       setProductList(productsData);
     })
   }, [categoryId])
@@ -56,11 +62,10 @@ function ProductPage() {
               <div className="text-center">
               {
                 productList.product_list?.map((product, productIndex) => {
-                  console.log(product)
                   const isProductHovered = isProductHoveredIndex === productIndex;
                   return(
-                    <Link to={`/product-details/${product.url}`} key={productIndex}>
-                      <div className="d-inline-block" >
+                    // <Link to={`/product-details/${product.url}`} key={productIndex}>
+                      <div className="d-inline-block" key={productIndex} onClick={() => {setModalOpen(true); setProductUrl(product.url)}}>
                         <div className={`position-relative m-1 rounded-1 border border-1 p-2 pb-5`} style={{width:'150px'}}>
                           <div className="w-100 ">
                             <img src={isProductHovered ? `https://${product.additionalImageUrls[0]}` : `https://${product.imageUrl}`} className="w-100" alt="" 
@@ -72,7 +77,7 @@ function ProductPage() {
                           <p className="fw-bold text-success position-absolute bottom-0 mb-1">{product.price.current.text} <span className="text-muted s-f-size fw-normal">{product.price.currency} </span></p>
                         </div>
                       </div>
-                    </Link>
+                    // </Link>
                   )
                 })
               }
@@ -81,6 +86,12 @@ function ProductPage() {
           </div>
         </div>
       </div>
+
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <div className="overflow-auto" style={{ maxHeight: '80vh' }}>
+          <ProductDetails pathQuery={productUrl} />
+        </div>
+      </Modal>
     </>
   );
 }

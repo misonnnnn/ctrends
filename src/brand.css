@@ -1,0 +1,10 @@
+.brandImageDiv{
+    position: relative;
+    top: 0px;
+    transition: .3s;
+}
+.brandImageDiv:hover{
+    top: -10px;
+    transition: .3s;
+    transform: scale(1.1);
+}

@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import API from "../utils/axios";
+import '../featured-products.css';
 //api keys
 //1a9d591a7amsh23c7fe97daf47d6p143dc3jsn594f31ebec65
 //fab9b4800dmsh6d3b5c77232eab3p130ec1jsn734ff01d57d1
@@ -49,13 +50,25 @@ function FeaturedItem(){
             <div className="d-flex justify-content-center ">
                 <div className="w-75">
                     <div className="row">
-                        {featuredProducts?.map(featuredProduct => (
-                            <div className="col-lg-3 col-md-3 col-6 mx-auto" key={featuredProduct.id}>
-                                <div className="card shadow rounded-3">
-                                    <img src={`https://${featuredProduct.imageUrl}`} alt="" />
+                        {featuredProducts?.map(featuredProduct => {
+                            console.log(featuredProduct);
+                            return (
+                                <div className="col-lg-3 col-md-3 col-6 mx-auto" key={featuredProduct.id}>
+                                    <div className="position-relative test ">
+                                        
+                                        <div className="card shadow rounded-3 featuredProduct2 featuredProduct">
+                                            <img src={`https://${featuredProduct.additionalImageUrls[0]}`} alt="" />
+                                        </div>
+                                        <div className="card shadow rounded-3 featuredProduct3 featuredProduct">
+                                            <img src={`https://${featuredProduct.additionalImageUrls[1]}`} alt="" />
+                                        </div>
+                                        <div className="card shadow rounded-3 featuredProduct1 featuredProduct">
+                                            <img src={`https://${featuredProduct.imageUrl}`} alt="" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                     </div>
                 </div>
             </div>

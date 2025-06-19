@@ -9,6 +9,7 @@ import './assets/fonts/fonts.css'
 import ProductDetails from './Pages/ProductDetails';
 import PageNotFound from './Pages/PageNotFound';
 import Login from './Pages/Login';
+import Register from './Pages/Register';
 import Dashboard from './Pages/Dasboard';
 import ProtectedRoute from './utils/protectedRoute';
 import PublicRoute from './utils/publicRoute';
@@ -27,6 +28,11 @@ function App(){
             <Route path='/login' element={
               <PublicRoute>
                 <Login />
+              </PublicRoute>
+            } />
+            <Route path='/register' element={
+              <PublicRoute>
+                <Register />
               </PublicRoute>
             } />
             <Route path="/dashboard" element={

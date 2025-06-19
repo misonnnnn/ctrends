@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import API from "../utils/axios";
 
-function ProductDetails(){
+function ProductDetails({pathQuery=null}){
     const location = useLocation();
     const path = location.pathname; 
     const cleanedPath = path.replace(/^\/?product-details\/?/, '');
-    const api_url_path = `/products/details/${cleanedPath}`;
+    const api_url_path = pathQuery ? `/products/details/${pathQuery}` :`/products/details/${cleanedPath}`;
 
 
     const [isProductLoaded, setIsProductLoaded] = useState(false);
@@ -48,7 +48,7 @@ function ProductDetails(){
                 setProductName(res.data.data.name);
                 setProductPrice(res.data.data.price.current.text)
                 setProductBrand(res.data.data.brandName)
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                !pathQuery && window.scrollTo({ top: 0, behavior: 'smooth' });
             }else{
                 setIsProductNotFound(true)
             }
@@ -67,12 +67,12 @@ function ProductDetails(){
          return (
             <>
                 <div className="container">
-                    <button className="my-3 btn btn-sm btn-default" onClick={handleBack}>
+                    {!pathQuery && (<button className="my-3 btn btn-sm btn-default" onClick={handleBack}>
                         <FontAwesomeIcon icon ={faCaretLeft} /> Go back
-                    </button>
+                    </button>)}
                     <div className="row">
                         {/* Product Images */}
-                        <div className="col-md-7 mb-2">
+                        <div className="col-md-12 col-lg-12 col-xl-6 mb-2">
                             <img
                                 src={mainImage}
                                 alt="Product"
@@ -94,7 +94,7 @@ function ProductDetails(){
                         </div>
 
                         {/* Product Details */}
-                        <div className="col-md-6">
+                        <div className="col-md-12 col-lg-12  col-xl-6">
                             <h2 className="mb-3">{productName}</h2>
                             <p className="text-muted mb-4">{productBrand}</p>
                             <div className="mb-3">
@@ -156,10 +156,10 @@ function ProductDetails(){
                                 />
                             </div>
 
-                            <button className="btn btn-primary btn-lg mb-3 me-2">
+                            <button className="btn btn-sm btn-light text-light btn-lg mb-3 me-2 primary_background">
                                 <i className="bi bi-cart-plus"></i> Add to Cart
                             </button>
-                            <button className="btn btn-outline-secondary btn-lg mb-3">
+                            <button className="btn btn-sm btn-outline-secondary btn-lg mb-3">
                                 <i className="bi bi-heart"></i> Add to Wishlist
                             </button>
 

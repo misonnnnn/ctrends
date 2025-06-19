@@ -1,0 +1,78 @@
+.featuredProduct2,.featuredProduct3{
+    position:absolute;
+    top:0;
+    left:0px;
+    right:0;
+    bottom:0;
+    opacity:0;
+}
+
+.test:hover .featuredProduct2{
+    transition: .3s;
+    right: 100px;
+    left: -100px;
+    opacity: .7;
+    z-index: 99;
+    scale: 0.8;
+}
+
+.test:hover .featuredProduct3{
+    transition: .3s;
+    left: 100px;
+    right: -100px;
+    opacity: .7;
+    scale: 0.8;
+    z-index: 99;
+}
+
+
+@media screen and (max-width: 586px) {
+   .featuredProduct2,.featuredProduct3{
+        position:absolute;
+        top:0;
+        left:0px;
+        right:0;
+        bottom:0;
+        opacity:0;
+    }
+
+    .test:hover .featuredProduct2{
+        transition: .3s;
+        top: 100px;
+        bottom: -100px;
+        opacity: .7;
+        z-index: 99;
+        scale: 0.8;
+    }
+
+    .test:hover .featuredProduct3{
+        transition: .3s;
+        bottom: 100px;
+        top: -100px;
+        opacity: .7;
+        scale: 0.8;
+        z-index: 99;
+    }
+
+
+    
+}
+
+
+.test:hover .featuredProduct1{
+     z-index: 100;
+}
+
+.featuredProduct{
+    transition: .3s;
+    z-index: 9;
+    opacity: 1;
+}
+
+.featuredProduct:hover {
+    opacity: 1 !important;
+    z-index: 999 !important;
+    scale: 1.1 !important;
+}
+
+

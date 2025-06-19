@@ -93,6 +93,7 @@ function Navbar() {
       })
       .catch(err => {
         console.error('Failed to fetch user details:', err);
+        logout()
       });
   }, [isLogin]);
 
